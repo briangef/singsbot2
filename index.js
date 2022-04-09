@@ -219,7 +219,7 @@ SBServer.on('chat', (channel, userstate, message, self) => {
     if(message.startsWith("!leave")) {
         if( QueueList[channel].isOpen )
         {
-            QueueList[channel].RemoveUser(userstate.username);
+            QueueList[channel].RemoveUser(userstate.username, false);
         } else {
             console.log("Queue not open on channel: " + channel);
             SBServer.say(channel, "Can't leave. Queue is not currently open.");
@@ -232,10 +232,13 @@ SBServer.on('chat', (channel, userstate, message, self) => {
         {
             let removeUsername = '';
 
-            if (message.length > 7) {
-                removeUsername = message.substring(7);
+            if (message.length > 8) {
+                removeUsername = message.substring(8);
+                QueueList[channel].RemoveUser(removeUsername, true);
+            } else {
+                console.log("no user specified to remove");
+                SBServer.say(channel, "You have to say who you want to remove.");
             }
-            QueueList[channel].RemoveUser(removeUsername);
         } else {
             PermissionError(channel, userstate.username);
         }

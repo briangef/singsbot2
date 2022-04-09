@@ -51,20 +51,23 @@ class Queue {
         }
     }
 
-    RemoveUser(username) {
+    RemoveUser(username, forcibly) {
         let userInQueue = false;
         for(let x = 0; x < this.userList.length; x++) {
             if(this.userList[x].username === username) {
                 userInQueue = true;
                 this.userList.splice(x, 1);
                 x--;
-
-                this.server.say(this.channel, '@' + username + ' has left the ' + this.QueueName.toLowerCase() + '.');
+                if(forcibly){
+                    this.server.say(this.channel, '@' + username + ' has been removed from the ' + this.QueueName.toLowerCase() + '.');
+                } else {
+                    this.server.say(this.channel, '@' + username + ' has left the ' + this.QueueName.toLowerCase() + '.');
+                }
             }
         }
 
         if( !userInQueue ) {
-            this.server.say(this.channel, '@' + username + ', you are not in the ' + this.QueueName.toLowerCase() + '.');
+            this.server.say(this.channel, '@' + username + ' is not in the ' + this.QueueName.toLowerCase() + '.');
         }
         console.log(this.userList);
     }
