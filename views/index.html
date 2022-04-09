@@ -8,11 +8,11 @@
         </div>
         <% if(!queue.isOpen){ %>
             <h3>Queue is currently closed</h3>
-        <% } else {%>
+        <% } %>
         <% queue.userList.forEach( function(user) { %>
             <div>
                 <%= user.username %> : <%= user.request %>
             </div>
-        <% }); } %>
+        <% }); %>
     </body>
 </html>
