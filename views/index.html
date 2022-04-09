@@ -1,0 +1,12 @@
+<html>
+    <body>
+        <div>
+            <h1><%= queue.channel %>'s Queue</h1>
+        </div>
+        <% queue.userList.forEach( function(user) { %>
+            <div>
+                <%= user.username %> : <%= user.request %>
+            </div>
+        <% }); %>
+    </body>
+</html>
