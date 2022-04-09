@@ -43,6 +43,7 @@ const SBCommands = {
     'join [REQUEST]' : 'Joins the queue, with an optional request message',
     'leave' : 'Removes yourself from the queue',
     'position' : "Gets your current position in the queue",
+    'remove [USERNAME]' : "Removes a person from the queue",
     'sbhelp [COMMAND]' : 'Displays help text about commands'
 }
 
@@ -224,6 +225,21 @@ SBServer.on('chat', (channel, userstate, message, self) => {
             SBServer.say(channel, "Can't leave. Queue is not currently open.");
         }
     }
+
+    // Remove users
+    if (message.startsWith('!remove')) {
+        if( userstate.badges.broadcaster === '1' || userstate.mod)
+        {
+            let removeUsername = '';
+
+            if (message.length > 7) {
+                removeUsername = message.substring(7);
+            }
+            QueueList[channel].RemoveUser(removeUsername);
+        } else {
+            PermissionError(channel, userstate.username);
+        }
+    }  
 
     // Get position of Queue
     if(message.startsWith("!position")) {
