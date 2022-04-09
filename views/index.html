@@ -1,12 +1,18 @@
 <html>
+    <head>
+        <meta http-equiv="refresh" content="5">
+    </head>
     <body>
         <div>
             <h1><%= queue.channel %>'s Queue</h1>
         </div>
+        <% if(!queue.isOpen){ %>
+            <h3>Queue is currently closed</h3>
+        <% } else {%>
         <% queue.userList.forEach( function(user) { %>
             <div>
                 <%= user.username %> : <%= user.request %>
             </div>
-        <% }); %>
+        <% }); } %>
     </body>
 </html>
